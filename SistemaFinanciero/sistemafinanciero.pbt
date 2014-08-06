@@ -3,5 +3,5 @@ Save Format v3.0(19990112)
 @end;
 appname "sistemafinanciero";
 applib "sistemafinanciero.pbl";
-LibList "sistemafinanciero.pbl;libreriasgenerales.pbl;datawindowsfinanciero.pbl;ventanasfinanciero.pbl";
+LibList "sistemafinanciero.pbl;libreriasgenerales.pbl;datawindowsfinanciero.pbl;ventanasfinanciero.pbl;datawindowsfiltrosfinanciero.pbl";
 type "pb";

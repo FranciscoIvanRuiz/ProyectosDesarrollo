@@ -56,6 +56,34 @@ INSERT INTO `articulos` VALUES (1,'001','CONSULTORIAS',1,5),(2,'002','MOVILIZACI
 UNLOCK TABLES;
 
 --
+-- Table structure for table `bodegas`
+--
+
+DROP TABLE IF EXISTS `bodegas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bodegas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(45) DEFAULT NULL,
+  `nombre` varchar(45) DEFAULT NULL,
+  `empresas_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_bodegas_empresas1` (`empresas_id`),
+  CONSTRAINT `fk_bodegas_empresas1` FOREIGN KEY (`empresas_id`) REFERENCES `empresas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bodegas`
+--
+
+LOCK TABLES `bodegas` WRITE;
+/*!40000 ALTER TABLE `bodegas` DISABLE KEYS */;
+INSERT INTO `bodegas` VALUES (1,'01','BODEGA PRINCIPAL',5),(2,'02','BODEGA SUCURSAL',5);
+/*!40000 ALTER TABLE `bodegas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `centrosdecostos`
 --
 
@@ -159,10 +187,14 @@ CREATE TABLE `dmovimientos` (
   `precio` decimal(18,6) DEFAULT NULL,
   `iva` decimal(18,6) DEFAULT NULL,
   `descuento` decimal(18,6) DEFAULT NULL,
+  `narticulos` varchar(45) DEFAULT NULL,
+  `bodegas_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_dmovimiento_movimiento1` (`movimientos_id`),
   KEY `fk_dmovimientos_articulos1` (`articulos_id`),
+  KEY `fk_dmovimientos_bodegas1` (`bodegas_id`),
   CONSTRAINT `fk_dmovimientos_articulos1` FOREIGN KEY (`articulos_id`) REFERENCES `articulos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_dmovimientos_bodegas1` FOREIGN KEY (`bodegas_id`) REFERENCES `bodegas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_dmovimiento_movimiento1` FOREIGN KEY (`movimientos_id`) REFERENCES `movimientos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -193,6 +225,8 @@ CREATE TABLE `empresas` (
   `direccion` varchar(45) DEFAULT NULL,
   `web` varchar(45) DEFAULT NULL,
   `personas_id` int(11) NOT NULL,
+  `renta` varchar(2) DEFAULT NULL,
+  `iva` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ruc_UNIQUE` (`ruc`),
   KEY `fk_empresas_personas_idx` (`personas_id`),
@@ -206,7 +240,7 @@ CREATE TABLE `empresas` (
 
 LOCK TABLES `empresas` WRITE;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
-INSERT INTO `empresas` VALUES (2,'SISTEMAS INFORMATICOS','1714688213001','022866316','022866316','francisco.ivan.ruiz@gmail.com','VALLE DE LOS CHILLOS','www.sistemas.com',1),(4,'CONTABILIDADES RUIZ','1714688212001','0984495050','0984495050','francisco.ivan.ruiz@icloud.com','CAPELO','WWW',1),(5,'MINI RUIZ','1714688213003','2866360','2866360','mini.com','mini.com','mini.com',1);
+INSERT INTO `empresas` VALUES (2,'SISTEMAS INFORMATICOS','1714688213001','022866316','022866316','francisco.ivan.ruiz@gmail.com','VALLE DE LOS CHILLOS','www.sistemas.com',1,NULL,NULL),(4,'CONTABILIDADES RUIZ','1714688212001','0984495050','0984495050','francisco.ivan.ruiz@icloud.com','CAPELO','WWW',1,NULL,NULL),(5,'MINI RUIZ','1714688213003','2866360','2866360','mini.com','mini.com','mini.com',1,NULL,NULL);
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -260,7 +294,7 @@ CREATE TABLE `movimientos` (
   CONSTRAINT `fk_movimiento_empresas1` FOREIGN KEY (`empresas_id`) REFERENCES `empresas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_movimientos_proveedoresclientes1` FOREIGN KEY (`proveedoresclientes_id`) REFERENCES `proveedoresclientes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_movimientos_transacciones1` FOREIGN KEY (`transacciones_id`) REFERENCES `transacciones` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -269,6 +303,7 @@ CREATE TABLE `movimientos` (
 
 LOCK TABLES `movimientos` WRITE;
 /*!40000 ALTER TABLE `movimientos` DISABLE KEYS */;
+INSERT INTO `movimientos` VALUES (1,5,'CL',1,1,'001','001','001','2014-08-06','001');
 /*!40000 ALTER TABLE `movimientos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -687,4 +722,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-08-05 21:40:40
+-- Dump completed on 2014-08-06 21:16:19

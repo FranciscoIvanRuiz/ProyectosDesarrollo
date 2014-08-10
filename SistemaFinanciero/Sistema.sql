@@ -36,13 +36,14 @@ CREATE TABLE `articulos` (
   `nombre` varchar(45) DEFAULT NULL,
   `tiposdearticulos_id` int(11) NOT NULL,
   `empresas_id` int(11) NOT NULL,
+  `iva` decimal(18,6) DEFAULT '0.000000',
   PRIMARY KEY (`id`),
   UNIQUE KEY `codigo_UNIQUE` (`codigo`),
   KEY `fk_articulos_tiposdearticulos1_idx` (`tiposdearticulos_id`),
   KEY `fk_articulos_empresas1_idx` (`empresas_id`),
   CONSTRAINT `fk_articulos_empresas1` FOREIGN KEY (`empresas_id`) REFERENCES `empresas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_articulos_tiposdearticulos1` FOREIGN KEY (`tiposdearticulos_id`) REFERENCES `tiposdearticulos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,7 +52,7 @@ CREATE TABLE `articulos` (
 
 LOCK TABLES `articulos` WRITE;
 /*!40000 ALTER TABLE `articulos` DISABLE KEYS */;
-INSERT INTO `articulos` VALUES (1,'001','CONSULTORIAS',1,5),(2,'002','MOVILIZACION',2,5);
+INSERT INTO `articulos` VALUES (1,'001','CONSULTORIAS Y DESARROLLOS DE SOFTWARE',1,5,12.000000),(2,'002','MOVILIZACION TAXIS ',2,5,0.000000),(3,'004','GASOLINA SUPER',1,5,12.000000),(4,'005','ALMUERZO PUERTO ACAPULCO',1,5,12.000000),(5,'006','JUGO PUERTO ACAPULCO',1,5,12.000000);
 /*!40000 ALTER TABLE `articulos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,6 +190,10 @@ CREATE TABLE `dmovimientos` (
   `descuento` decimal(18,6) DEFAULT NULL,
   `narticulos` varchar(45) DEFAULT NULL,
   `bodegas_id` int(11) NOT NULL,
+  `codigorenta` int(11) DEFAULT NULL,
+  `codigoiva` int(11) DEFAULT NULL,
+  `valorrenta` decimal(18,6) DEFAULT NULL,
+  `valoriva` decimal(18,6) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_dmovimiento_movimiento1` (`movimientos_id`),
   KEY `fk_dmovimientos_articulos1` (`articulos_id`),
@@ -196,7 +201,7 @@ CREATE TABLE `dmovimientos` (
   CONSTRAINT `fk_dmovimientos_articulos1` FOREIGN KEY (`articulos_id`) REFERENCES `articulos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_dmovimientos_bodegas1` FOREIGN KEY (`bodegas_id`) REFERENCES `bodegas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_dmovimiento_movimiento1` FOREIGN KEY (`movimientos_id`) REFERENCES `movimientos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -205,6 +210,7 @@ CREATE TABLE `dmovimientos` (
 
 LOCK TABLES `dmovimientos` WRITE;
 /*!40000 ALTER TABLE `dmovimientos` DISABLE KEYS */;
+INSERT INTO `dmovimientos` VALUES (1,1,1,1.000000,1.000000,12.000000,1.000000,'1',1,NULL,NULL,NULL,NULL),(2,2,4,1.000000,7.950000,12.000000,0.000000,'ALMUERZO PUERTO ACAPULCO',1,NULL,NULL,7.950000,0.954000),(3,2,5,1.000000,1.790000,12.000000,0.000000,'JUGO PUERTO ACAPULCO',1,NULL,NULL,1.790000,0.214800);
 /*!40000 ALTER TABLE `dmovimientos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -287,6 +293,12 @@ CREATE TABLE `movimientos` (
   `factura` varchar(45) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `secuencial` varchar(45) DEFAULT NULL,
+  `subtconimpuestos` decimal(18,6) DEFAULT '0.000000',
+  `subtsinimpuestos` decimal(18,6) DEFAULT '0.000000',
+  `subtotal` decimal(18,6) DEFAULT '0.000000',
+  `totalimpuesto` decimal(18,6) DEFAULT '0.000000',
+  `total` decimal(18,6) DEFAULT '0.000000',
+  `totaldescuento` decimal(18,6) DEFAULT '0.000000',
   PRIMARY KEY (`id`),
   KEY `fk_movimiento_empresas1` (`empresas_id`),
   KEY `fk_movimientos_proveedoresclientes1` (`proveedoresclientes_id`),
@@ -294,7 +306,7 @@ CREATE TABLE `movimientos` (
   CONSTRAINT `fk_movimiento_empresas1` FOREIGN KEY (`empresas_id`) REFERENCES `empresas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_movimientos_proveedoresclientes1` FOREIGN KEY (`proveedoresclientes_id`) REFERENCES `proveedoresclientes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_movimientos_transacciones1` FOREIGN KEY (`transacciones_id`) REFERENCES `transacciones` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -303,7 +315,7 @@ CREATE TABLE `movimientos` (
 
 LOCK TABLES `movimientos` WRITE;
 /*!40000 ALTER TABLE `movimientos` DISABLE KEYS */;
-INSERT INTO `movimientos` VALUES (1,5,'CL',1,1,'001','001','001','2014-08-06','001');
+INSERT INTO `movimientos` VALUES (1,5,'CL',1,1,'001','001','001','2014-08-06','001',0.000000,0.000000,0.000000,0.000000,0.000000,0.000000),(2,5,'PR',2,2,'S002','001','000071178','2014-08-08','1',9.740000,0.000000,9.740000,1.168800,10.908800,0.000000);
 /*!40000 ALTER TABLE `movimientos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,174 +344,6 @@ CREATE TABLE `parametros` (
 LOCK TABLES `parametros` WRITE;
 /*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
 /*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `pbcatcol`
---
-
-DROP TABLE IF EXISTS `pbcatcol`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pbcatcol` (
-  `pbc_tnam` char(193) NOT NULL,
-  `pbc_tid` int(11) DEFAULT NULL,
-  `pbc_ownr` char(193) NOT NULL,
-  `pbc_cnam` char(193) NOT NULL,
-  `pbc_cid` smallint(6) DEFAULT NULL,
-  `pbc_labl` varchar(254) DEFAULT NULL,
-  `pbc_lpos` smallint(6) DEFAULT NULL,
-  `pbc_hdr` varchar(254) DEFAULT NULL,
-  `pbc_hpos` smallint(6) DEFAULT NULL,
-  `pbc_jtfy` smallint(6) DEFAULT NULL,
-  `pbc_mask` varchar(31) DEFAULT NULL,
-  `pbc_case` smallint(6) DEFAULT NULL,
-  `pbc_hght` smallint(6) DEFAULT NULL,
-  `pbc_wdth` smallint(6) DEFAULT NULL,
-  `pbc_ptrn` varchar(31) DEFAULT NULL,
-  `pbc_bmap` char(1) DEFAULT NULL,
-  `pbc_init` varchar(254) DEFAULT NULL,
-  `pbc_cmnt` varchar(254) DEFAULT NULL,
-  `pbc_edit` varchar(31) DEFAULT NULL,
-  `pbc_tag` varchar(254) DEFAULT NULL,
-  UNIQUE KEY `pbcatc_x` (`pbc_tnam`,`pbc_ownr`,`pbc_cnam`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pbcatcol`
---
-
-LOCK TABLES `pbcatcol` WRITE;
-/*!40000 ALTER TABLE `pbcatcol` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pbcatcol` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `pbcatedt`
---
-
-DROP TABLE IF EXISTS `pbcatedt`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pbcatedt` (
-  `pbe_name` varchar(30) NOT NULL,
-  `pbe_edit` varchar(254) DEFAULT NULL,
-  `pbe_type` smallint(6) DEFAULT NULL,
-  `pbe_cntr` int(11) DEFAULT NULL,
-  `pbe_seqn` smallint(6) NOT NULL,
-  `pbe_flag` int(11) DEFAULT NULL,
-  `pbe_work` char(32) DEFAULT NULL,
-  UNIQUE KEY `pbcate_x` (`pbe_name`,`pbe_seqn`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pbcatedt`
---
-
-LOCK TABLES `pbcatedt` WRITE;
-/*!40000 ALTER TABLE `pbcatedt` DISABLE KEYS */;
-INSERT INTO `pbcatedt` VALUES ('#####','#####',90,1,1,32,'10'),('###,###.00','###,###.00',90,1,1,32,'10'),('###-##-####','###-##-####',90,1,1,32,'00'),('DD/MM/YY','DD/MM/YY',90,1,1,32,'20'),('DD/MM/YY HH:MM:SS','DD/MM/YY HH:MM:SS',90,1,1,32,'40'),('DD/MM/YY HH:MM:SS:FFFFFF','DD/MM/YY HH:MM:SS:FFFFFF',90,1,1,32,'40'),('DD/MM/YYYY','DD/MM/YYYY',90,1,1,32,'20'),('DD/MM/YYYY HH:MM:SS','DD/MM/YYYY HH:MM:SS',90,1,1,32,'40'),('DD/MMM/YY','DD/MMM/YY',90,1,1,32,'20'),('DD/MMM/YY HH:MM:SS','DD/MMM/YY HH:MM:SS',90,1,1,32,'40'),('HH:MM:SS','HH:MM:SS',90,1,1,32,'30'),('HH:MM:SS:FFF','HH:MM:SS:FFF',90,1,1,32,'30'),('HH:MM:SS:FFFFFF','HH:MM:SS:FFFFFF',90,1,1,32,'30'),('JJJ/YY','JJJ/YY',90,1,1,32,'20'),('JJJ/YY HH:MM:SS','JJJ/YY HH:MM:SS',90,1,1,32,'40'),('JJJ/YYYY','JJJ/YYYY',90,1,1,32,'20'),('JJJ/YYYY HH:MM:SS','JJJ/YYYY HH:MM:SS',90,1,1,32,'40'),('MM/DD/YY','MM/DD/YY',90,1,1,32,'20'),('MM/DD/YY HH:MM:SS','MM/DD/YY HH:MM:SS',90,1,1,32,'40'),('MM/DD/YYYY','MM/DD/YYYY',90,1,1,32,'20'),('MM/DD/YYYY HH:MM:SS','MM/DD/YYYY HH:MM:SS',90,1,1,32,'40');
-/*!40000 ALTER TABLE `pbcatedt` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `pbcatfmt`
---
-
-DROP TABLE IF EXISTS `pbcatfmt`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pbcatfmt` (
-  `pbf_name` varchar(30) NOT NULL,
-  `pbf_frmt` varchar(254) DEFAULT NULL,
-  `pbf_type` smallint(6) DEFAULT NULL,
-  `pbf_cntr` int(11) DEFAULT NULL,
-  UNIQUE KEY `pbcatf_x` (`pbf_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pbcatfmt`
---
-
-LOCK TABLES `pbcatfmt` WRITE;
-/*!40000 ALTER TABLE `pbcatfmt` DISABLE KEYS */;
-INSERT INTO `pbcatfmt` VALUES ('#,##0','#,##0',81,0),('#,##0.00','#,##0.00',81,0),('$#,##0.00;($#,##0.00)','$#,##0.00;($#,##0.00)',81,0),('$#,##0.00;[RED]($#,##0.00)','$#,##0.00;[RED]($#,##0.00)',81,0),('$#,##0;($#,##0)','$#,##0;($#,##0)',81,0),('$#,##0;[RED]($#,##0)','$#,##0;[RED]($#,##0)',81,0),('0','0',81,0),('0%','0%',81,0),('0.00','0.00',81,0),('0.00%','0.00%',81,0),('0.00E+00','0.00E+00',81,0),('d-mmm','d-mmm',84,0),('d-mmm-yy','d-mmm-yy',84,0),('h:mm AM/PM','h:mm AM/PM',84,0),('h:mm:ss','h:mm:ss',84,0),('h:mm:ss AM/PM','h:mm:ss AM/PM',84,0),('m/d/yy','m/d/yy',84,0),('m/d/yy h:mm','m/d/yy h:mm',84,0),('mmm-yy','mmm-yy',84,0),('[General]','[General]',81,0);
-/*!40000 ALTER TABLE `pbcatfmt` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `pbcattbl`
---
-
-DROP TABLE IF EXISTS `pbcattbl`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pbcattbl` (
-  `pbt_tnam` char(193) NOT NULL,
-  `pbt_tid` int(11) DEFAULT NULL,
-  `pbt_ownr` char(193) NOT NULL,
-  `pbd_fhgt` smallint(6) DEFAULT NULL,
-  `pbd_fwgt` smallint(6) DEFAULT NULL,
-  `pbd_fitl` char(1) DEFAULT NULL,
-  `pbd_funl` char(1) DEFAULT NULL,
-  `pbd_fchr` smallint(6) DEFAULT NULL,
-  `pbd_fptc` smallint(6) DEFAULT NULL,
-  `pbd_ffce` char(18) DEFAULT NULL,
-  `pbh_fhgt` smallint(6) DEFAULT NULL,
-  `pbh_fwgt` smallint(6) DEFAULT NULL,
-  `pbh_fitl` char(1) DEFAULT NULL,
-  `pbh_funl` char(1) DEFAULT NULL,
-  `pbh_fchr` smallint(6) DEFAULT NULL,
-  `pbh_fptc` smallint(6) DEFAULT NULL,
-  `pbh_ffce` char(18) DEFAULT NULL,
-  `pbl_fhgt` smallint(6) DEFAULT NULL,
-  `pbl_fwgt` smallint(6) DEFAULT NULL,
-  `pbl_fitl` char(1) DEFAULT NULL,
-  `pbl_funl` char(1) DEFAULT NULL,
-  `pbl_fchr` smallint(6) DEFAULT NULL,
-  `pbl_fptc` smallint(6) DEFAULT NULL,
-  `pbl_ffce` char(18) DEFAULT NULL,
-  `pbt_cmnt` varchar(254) DEFAULT NULL,
-  UNIQUE KEY `pbcatt_x` (`pbt_tnam`,`pbt_ownr`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pbcattbl`
---
-
-LOCK TABLES `pbcattbl` WRITE;
-/*!40000 ALTER TABLE `pbcattbl` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pbcattbl` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `pbcatvld`
---
-
-DROP TABLE IF EXISTS `pbcatvld`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pbcatvld` (
-  `pbv_name` varchar(30) NOT NULL,
-  `pbv_vald` varchar(254) DEFAULT NULL,
-  `pbv_type` smallint(6) DEFAULT NULL,
-  `pbv_cntr` int(11) DEFAULT NULL,
-  `pbv_msg` varchar(254) DEFAULT NULL,
-  UNIQUE KEY `pbcatv_x` (`pbv_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pbcatvld`
---
-
-LOCK TABLES `pbcatvld` WRITE;
-/*!40000 ALTER TABLE `pbcatvld` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pbcatvld` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -560,7 +404,7 @@ CREATE TABLE `proveedoresclientes` (
   PRIMARY KEY (`id`),
   KEY `fk_proveedores_empresas1` (`empresas_id`),
   CONSTRAINT `fk_proveedores_empresas1` FOREIGN KEY (`empresas_id`) REFERENCES `empresas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -569,7 +413,7 @@ CREATE TABLE `proveedoresclientes` (
 
 LOCK TABLES `proveedoresclientes` WRITE;
 /*!40000 ALTER TABLE `proveedoresclientes` DISABLE KEYS */;
-INSERT INTO `proveedoresclientes` VALUES (1,'001','1714688213','FRANCISCO IVAN RUIZ SIMBANA','VALLE DE LOS CHILLOS','2866136','0984495050',NULL,'francisco.ivan.ruiz@gmail.com','FRANCISCO RUIZ',5,1,2,3,4,4,4,'PR');
+INSERT INTO `proveedoresclientes` VALUES (1,'001','1714688213','FRANCISCO IVAN RUIZ SIMBANA','VALLE DE LOS CHILLOS','2866136','0984495050',NULL,'francisco.ivan.ruiz@gmail.com','FRANCISCO RUIZ',5,1,2,3,4,4,4,'PR'),(2,'002','1300241161001','PUERTO ACAPULCO','ISLA FLOREANA 314 E ISLA SEYMOUR','2452330','2266839',NULL,NULL,'ING. JAIME NOE RAMON MENDOZA MENDOZA',5,NULL,NULL,NULL,3,4,5,NULL);
 /*!40000 ALTER TABLE `proveedoresclientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -612,10 +456,9 @@ CREATE TABLE `tiposdearticulos` (
   `tipo` varchar(2) DEFAULT NULL,
   `empresas_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `codigo_UNIQUE` (`codigo`),
   KEY `fk_tiposdearticulos_empresas1_idx` (`empresas_id`),
   CONSTRAINT `fk_tiposdearticulos_empresas1` FOREIGN KEY (`empresas_id`) REFERENCES `empresas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -624,7 +467,7 @@ CREATE TABLE `tiposdearticulos` (
 
 LOCK TABLES `tiposdearticulos` WRITE;
 /*!40000 ALTER TABLE `tiposdearticulos` DISABLE KEYS */;
-INSERT INTO `tiposdearticulos` VALUES (1,'001','COMPUTADORAS','01',5),(2,'002','TAXIS FRANCISCO RUIZ','02',5),(3,'003','CONTABILIDADES','02',4),(4,'004','TRASNPORTES','03',4);
+INSERT INTO `tiposdearticulos` VALUES (1,'001','BIENES','01',5),(2,'002','SERVICIOS','02',5),(3,'003','CONTABILIDADES','02',4),(4,'004','TRASNPORTES','03',4),(6,'003','TRANSPORTE','03',5);
 /*!40000 ALTER TABLE `tiposdearticulos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -675,7 +518,7 @@ CREATE TABLE `transacciones` (
   KEY `fk_transacciones_contadores1` (`contadores_id`),
   CONSTRAINT `fk_transacciones_contadores1` FOREIGN KEY (`contadores_id`) REFERENCES `contadores` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_transacciones_empresas1` FOREIGN KEY (`empresas_id`) REFERENCES `empresas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -684,7 +527,7 @@ CREATE TABLE `transacciones` (
 
 LOCK TABLES `transacciones` WRITE;
 /*!40000 ALTER TABLE `transacciones` DISABLE KEYS */;
-INSERT INTO `transacciones` VALUES (1,'001','001',5,'I',1);
+INSERT INTO `transacciones` VALUES (1,'001','001',5,'I',1),(2,'FACPROV','FACTURA PROVEEDORES',5,'I',1);
 /*!40000 ALTER TABLE `transacciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -722,4 +565,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-08-06 21:16:19
+-- Dump completed on 2014-08-10 15:52:15

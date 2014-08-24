@@ -1,0 +1,19 @@
+C:\Users\USER\AppData\Local\Temporary Projects\SistemaFinanciero\bin\Debug\SistemaFinanciero.exe.config
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\bin\Debug\SistemaFinanciero.exe.config
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\bin\Debug\SistemaFinanciero.exe
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\bin\Debug\SistemaFinanciero.pdb
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\bin\Debug\SistemaFinanciero.xml
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\obj\Debug\SistemaFinanciero.vbprojResolveAssemblyReference.cache
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\obj\Debug\SistemaFinanciero.Resources.resources
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\obj\Debug\SistemaFinanciero.vbproj.GenerateResource.Cache
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\obj\Debug\SistemaFinanciero.exe
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\obj\Debug\SistemaFinanciero.xml
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\obj\Debug\SistemaFinanciero.pdb
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\obj\Debug\SistemaFinanciero.Form_TiposDeSangre.resources
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\obj\Debug\SistemaFinanciero.Principal.resources
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\obj\Debug\SistemaFinanciero.Form_TiposDeLicencia.resources
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\obj\Debug\SistemaFinanciero.Form_TiposDeComunicacion.resources
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\obj\Debug\SistemaFinanciero.Form_Personas.resources
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\obj\Debug\SistemaFinanciero.Form_Buscar_Personas.resources
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\obj\Debug\SistemaFinanciero.Form_Empresas.resources
+C:\DESARROLLO DE SISTEMAS\ProyectosDesarrollo\SistemaFinanciero\SistemaFinanciero\SistemaFinanciero\obj\Debug\SistemaFinanciero.Form_Buscar_Empresas.resources

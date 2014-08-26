@@ -1,8 +1,10 @@
 ﻿Public Class Form_TiposDeSangre
 
-
+    Inherits DevComponents.DotNetBar.Metro.MetroForm
 
     Private Sub Form_TiposDeSangre_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+     
+
         t_tipo.CharacterCasing = CharacterCasing.Upper
     End Sub
 

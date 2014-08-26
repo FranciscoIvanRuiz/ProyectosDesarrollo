@@ -61,6 +61,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=11.7.0.0, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar2, Version=11.7.0.0, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.Instrumentation, Version=11.7.0.0, Culture=neutral, PublicKeyToken=bc4a9d761ea44ef0" />
     <Reference Include="MySql.Data, Version=6.4.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files (x86)\MySQL\Connector NET 6.4.4\Assemblies\v4.0\MySql.Data.dll</HintPath>
@@ -97,18 +100,33 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\Clase_Datos_Empleados.vb" />
+    <Compile Include="Clases\Clase_Empleados.vb" />
     <Compile Include="Conexion.vb" />
-    <Compile Include="Consultas\Consulta_Empresas.vb" />
-    <Compile Include="Consultas\Consulta_Personas.vb" />
+    <Compile Include="Modulos\Consulta_Empresas.vb" />
+    <Compile Include="Modulos\Consulta_Personas.vb" />
     <Compile Include="Datos\Clase_Empresas.vb" />
     <Compile Include="Datos\Clase_Personas.vb" />
     <Compile Include="Datos\Clase_TiposDeComunicacion.vb" />
     <Compile Include="Datos\Clase_TiposDeLicencia.vb" />
     <Compile Include="Datos\Clase_TiposDeSangre.vb" />
+    <Compile Include="Formularios\Form_Lista_Empleados.Designer.vb">
+      <DependentUpon>Form_Lista_Empleados.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Form_Lista_Empleados.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuPrincipal.Designer.vb">
+      <DependentUpon>MenuPrincipal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MenuPrincipal.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Logica\Clase_Datos_Empresas.vb" />
     <Compile Include="Logica\Clase_Datos_Personas.vb" />
     <Compile Include="Logica\Clase_Datos_TiposDeComunicacion.vb" />
     <Compile Include="Logica\Clase_Datos_TiposDeLicencia.vb" />
+    <Compile Include="Modulos\Consultas_Empleados.vb" />
     <Compile Include="Presentacion\Consultas\Form_Buscar_Empresas.Designer.vb">
       <DependentUpon>Form_Buscar_Empresas.vb</DependentUpon>
     </Compile>
@@ -119,6 +137,12 @@
       <DependentUpon>Form_Buscar_Personas.vb</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Consultas\Form_Buscar_Personas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Consultas\Form_Buscar_Empleados.Designer.vb">
+      <DependentUpon>Form_Buscar_Empleados.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Consultas\Form_Buscar_Empleados.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Presentacion\Form_Empresas.Designer.vb">
@@ -176,11 +200,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Formularios\Form_Lista_Empleados.resx">
+      <DependentUpon>Form_Lista_Empleados.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuPrincipal.resx">
+      <DependentUpon>MenuPrincipal.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Consultas\Form_Buscar_Empresas.resx">
       <DependentUpon>Form_Buscar_Empresas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Consultas\Form_Buscar_Personas.resx">
       <DependentUpon>Form_Buscar_Personas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Consultas\Form_Buscar_Empleados.resx">
+      <DependentUpon>Form_Buscar_Empleados.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Form_Empresas.resx">
       <DependentUpon>Form_Empresas.vb</DependentUpon>
@@ -271,6 +304,28 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Work area.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="ACTIVESKINLib">
+      <Guid>{90F3D7B3-92E7-44BA-B444-6A8E2A3BC375}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxACTIVESKINLib">
+      <Guid>{90F3D7B3-92E7-44BA-B444-6A8E2A3BC375}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -52,8 +52,8 @@ Module Consulta_Personas
     Public Sub Grid_Personas()
         Try
             With (Form_Buscar_Personas.DGPersonas)
-                .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
-                .DefaultCellStyle.BackColor = Color.White
+                ' .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
+                '.DefaultCellStyle.BackColor = Color.White
             End With
             ' Form_Buscar_Personas.DGPersonas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing
             'Form_Buscar_Personas.DGPersonas.ColumnHeadersHeight = 30

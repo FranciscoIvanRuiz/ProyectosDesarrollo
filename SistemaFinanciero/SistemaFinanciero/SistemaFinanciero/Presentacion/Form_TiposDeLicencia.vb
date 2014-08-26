@@ -1,6 +1,15 @@
 ﻿Public Class Form_TiposDeLicencia
+    Inherits DevComponents.DotNetBar.Office2007Form
 
-    Private Sub btn_guardar_Click(sender As Object, e As EventArgs) Handles btn_guardar.Click
+
+   
+
+    Private Sub Form_TiposDeLicencia_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        t_tipo.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+   
+    Private Sub btn_guardar1_Click_1(sender As Object, e As EventArgs) Handles btn_guardar.Click
         Dim conexion As New Clase_TiposDeLicencia
         Dim datos As New Clase_Datos_TiposDeLicencia
 
@@ -20,9 +29,6 @@
             t_tipo.Clear()
             Me.Close()
         End If
-    End Sub
 
-    Private Sub Form_TiposDeLicencia_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        t_tipo.CharacterCasing = CharacterCasing.Upper
     End Sub
 End Class

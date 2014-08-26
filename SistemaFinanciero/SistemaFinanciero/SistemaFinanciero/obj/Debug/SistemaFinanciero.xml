@@ -55,6 +55,10 @@ SistemaFinanciero
 	<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
 </summary>
+</member><member name="P:SistemaFinanciero.My.Resources.Resources.Save">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
 </member><member name="P:SistemaFinanciero.My.Resources.Resources.Work_area">
 	<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.

@@ -1,4 +1,5 @@
 ﻿Public Class Form_TiposDeComunicacion
+    Inherits DevComponents.DotNetBar.Metro.MetroForm
 
     Private Sub btn_guardar_Click(sender As Object, e As EventArgs) Handles btn_guardar.Click
         Dim conexion As New Clase_TiposDeComunicacion

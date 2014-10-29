@@ -9,7 +9,7 @@ Public Class Clase_Empleados
         Dim estado As Boolean = True
         Try
             conex_Global()
-            _adaptador.InsertCommand = New MySqlCommand("INSERT INTO empleados (cedula ,  nombre1 ,  nombre2 ,  apellido1 ,  apellido2,empresas_id, tiposdesangre_id,tiposdelicencia_id,fechanaci,   direccion,   telefono,   fax,   celular  ) values (@cedula ,  @nombre1 ,  @nombre2 ,  @apellido1 ,  @apellido2,@empresas,@tiposdesangre,@tiposdelicencia,@fechanaci,   @direccion,   @telefono,   @fax,   @celular  )", _conexion)
+            _adaptador.InsertCommand = New MySqlCommand("INSERT INTO empleados (cedula ,  nombre1 ,  nombre2 ,  apellido1 ,  apellido2,empresas_id, tiposdesangre_id,tiposdelicencia_id,fechanaci,   direccion,   telefono,   fax,   celular ,pais_id,   provincia_id,  ciudad_id,comunidad_id   ) values (@cedula ,  @nombre1 ,  @nombre2 ,  @apellido1 ,  @apellido2,@empresas,@tiposdesangre,@tiposdelicencia,@fechanaci,   @direccion,   @telefono,   @fax,   @celular,@pais,@provincia,@ciudad,@comunidad  )", _conexion)
             _adaptador.InsertCommand.Parameters.Add("@cedula", MySqlDbType.VarChar, 45).Value = datos.cedula
             _adaptador.InsertCommand.Parameters.Add("@nombre1", MySqlDbType.VarChar, 45).Value = datos.nombre1
             _adaptador.InsertCommand.Parameters.Add("@nombre2", MySqlDbType.VarChar, 45).Value = datos.nombre2
@@ -24,6 +24,12 @@ Public Class Clase_Empleados
             _adaptador.InsertCommand.Parameters.Add("@telefono", MySqlDbType.VarChar, 45).Value = datos.telefono
             _adaptador.InsertCommand.Parameters.Add("@fax", MySqlDbType.VarChar, 45).Value = datos.fax
             _adaptador.InsertCommand.Parameters.Add("@celular", MySqlDbType.VarChar, 45).Value = datos.celular
+
+
+            _adaptador.InsertCommand.Parameters.Add("@pais", MySqlDbType.Int32).Value = datos.pais
+            _adaptador.InsertCommand.Parameters.Add("@provincia", MySqlDbType.Int32).Value = datos.provincia
+            _adaptador.InsertCommand.Parameters.Add("@ciudad", MySqlDbType.Int32).Value = datos.ciudad
+            _adaptador.InsertCommand.Parameters.Add("@comunidad", MySqlDbType.Int32).Value = datos.comunidad
 
             _conexion.Open()
             _adaptador.InsertCommand.Connection = _conexion
@@ -43,7 +49,7 @@ Public Class Clase_Empleados
         Dim estado As Boolean = True
         Try
             conex_Global()
-            _adaptador.UpdateCommand = New MySqlCommand("UPDATE empleados  SET cedula = @cedula,  nombre1 = @nombre1,   nombre2 = @nombre2,   apellido1 = @apellido1, apellido2 = @apellido2 ,tiposdesangre_id=@tiposdesangre , tiposdelicencia_id=@tiposdelicencia , fechanaci=@fechanaci,   direccion=@direccion,   telefono=@telefono,   fax=@fax,   celular=@celular   WHERE empleados.id = @id   ", _conexion)
+            _adaptador.UpdateCommand = New MySqlCommand("UPDATE empleados  SET cedula = @cedula,  nombre1 = @nombre1,   nombre2 = @nombre2,   apellido1 = @apellido1, apellido2 = @apellido2 ,tiposdesangre_id=@tiposdesangre , tiposdelicencia_id=@tiposdelicencia , fechanaci=@fechanaci,   direccion=@direccion,   telefono=@telefono,   fax=@fax,   celular=@celular ,pais_id=@pais,   ciudad_id=@ciudad,  provincia_id=@provincia,comunidad_id  =@comunidad  WHERE empleados.id = @id   ", _conexion)
             _adaptador.UpdateCommand.Parameters.Add("@id", MySqlDbType.Int32).Value = datos.id
             _adaptador.UpdateCommand.Parameters.Add("@cedula", MySqlDbType.VarChar, 45).Value = datos.cedula
             _adaptador.UpdateCommand.Parameters.Add("@nombre1", MySqlDbType.VarChar, 45).Value = datos.nombre1
@@ -58,6 +64,12 @@ Public Class Clase_Empleados
             _adaptador.UpdateCommand.Parameters.Add("@telefono", MySqlDbType.VarChar, 45).Value = datos.telefono
             _adaptador.UpdateCommand.Parameters.Add("@fax", MySqlDbType.VarChar, 45).Value = datos.fax
             _adaptador.UpdateCommand.Parameters.Add("@celular", MySqlDbType.VarChar, 45).Value = datos.celular
+
+            _adaptador.UpdateCommand.Parameters.Add("@pais", MySqlDbType.Int32).Value = datos.pais
+            _adaptador.UpdateCommand.Parameters.Add("@provincia", MySqlDbType.Int32).Value = datos.provincia
+            _adaptador.UpdateCommand.Parameters.Add("@ciudad", MySqlDbType.Int32).Value = datos.ciudad
+            _adaptador.UpdateCommand.Parameters.Add("@comunidad", MySqlDbType.Int32).Value = datos.comunidad
+
 
             _conexion.Open()
             _adaptador.UpdateCommand.Connection = _conexion

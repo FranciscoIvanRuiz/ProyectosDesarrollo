@@ -15,6 +15,48 @@
     Private _fax As String
     Private _celular As String
 
+    Private _pais As Integer
+    Private _provincia As Integer
+    Private _ciudad As Integer
+    Private _comunidad As Integer
+
+
+
+    Public Property pais() As String
+        Get
+            Return _pais
+        End Get
+        Set(ByVal value As String)
+            _pais = value
+        End Set
+    End Property
+
+    Public Property provincia() As String
+        Get
+            Return _provincia
+        End Get
+        Set(ByVal value As String)
+            _provincia = value
+        End Set
+    End Property
+
+    Public Property ciudad() As String
+        Get
+            Return _ciudad
+        End Get
+        Set(ByVal value As String)
+            _ciudad = value
+        End Set
+    End Property
+
+    Public Property comunidad() As String
+        Get
+            Return _comunidad
+        End Get
+        Set(ByVal value As String)
+            _comunidad = value
+        End Set
+    End Property
 
     Public Property fechanaci() As Date
         Get

@@ -100,6 +100,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\Clase_CargosEmpleados.vb" />
+    <Compile Include="Clases\Clase_Datos_CargosEmpleados.vb" />
     <Compile Include="Clases\Clase_Datos_Empleados.vb" />
     <Compile Include="Clases\Clase_Empleados.vb" />
     <Compile Include="Conexion.vb" />
@@ -326,6 +328,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\New file.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
